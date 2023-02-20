@@ -80,9 +80,9 @@ let rec arithEval a (w: word) (s: Map<string, int>) =
     | V str -> Map.tryFind str s |> Option.defaultValue 0
     | WL -> w.Length
     | PV x -> snd w.[arithEval x w s]
-    | Add(a,b) -> arithEval a w s + arithEval a w s
-    | Sub(a,b) -> arithEval a w s - arithEval a w s
-    | Mul(a,b) -> arithEval a w s * arithEval a w s
+    | Add(a,b) -> arithEval a w s + arithEval b w s
+    | Sub(a,b) -> arithEval a w s - arithEval b w s
+    | Mul(a,b) -> arithEval a w s * arithEval b w s
 
 //Exercise 3.4
 let rec charEval c (w: word) (s: Map<string, int>) =
