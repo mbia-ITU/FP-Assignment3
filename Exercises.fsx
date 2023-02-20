@@ -39,6 +39,11 @@ let (.<>.) a b = ~~(a .=. b) (* numeric inequality *)
 let (.<=.) a b = a .<. b .||. ~~(a .<>. b) (* numeric less than or equal to *)
 let (.>=.) a b = ~~(a .<. b) (* numeric greater than or equal to *)
 let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)
+let arithSingleLetterScore = PV (V "_pos_") .+. (V "_acc_");;
+let arithDoubleLetterScore = ((N 2) .*. PV (V "_pos_")) .+. (V "_acc_");;
+let arithTripleLetterScore = ((N 3) .*. PV (V "_pos_")) .+. (V "_acc_");;
+let arithDoubleWordScore = N 2 .*. V "_acc_";;
+let arithTripleWordScore = N 3 .*. V "_acc_";;
 
 type word = (char * int) list
 
