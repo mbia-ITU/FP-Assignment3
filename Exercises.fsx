@@ -47,6 +47,13 @@ let arithTripleWordScore = N 3 .*. V "_acc_";;
 
 type word = (char * int) list
 
+type stmnt =
+| Skip (* does nothing *)
+| Ass of string * aExp (* variable assignment *)
+| Seq of stmnt * stmnt (* sequential composition *)
+| ITE of bExp * stmnt * stmnt (* if-then-else statement *)
+| While of bExp * stmnt (* while statement *)
+
 //Tests
 let a1 = N 42;;
 let a2 = N 4 .+. (N 5 .-. N 6);;
@@ -112,3 +119,9 @@ let rec boolEval b (w: word) (s: Map<string, int>) =
     | IsDigit(c) -> Char.IsDigit (charEval c w s)
     | IsLetter(c) -> Char.IsLetter (charEval c w s)
     | IsVowel(c) -> ("aeiouæøåAEIOUÆØÅ ".Contains(charEval c w s))
+
+//Exercise 3.6
+let isConsonant c = 
+    Not (IsVowel c)
+
+//Exercise 3.7
