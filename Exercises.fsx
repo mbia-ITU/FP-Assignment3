@@ -125,3 +125,22 @@ let isConsonant c =
     Not (IsVowel c)
 
 //Exercise 3.7
+let rec evalStmnt stmnt w s =
+    match stmnt with
+    | Skip -> s
+    | Ass(x, a) ->
+        let v = arithEval a w s 
+        Map.add x v s
+    | Seq (stmnt1, stmnt2) ->
+        let s' = evalStmnt stmnt1 w s
+        evalStmnt stmnt2 w s'
+    | ITE(guard, stmnt1, stmnt2) ->
+        let b = boolEval guard w s
+        if b then evalStmnt stmnt1 w s
+        else evalStmnt stmnt2 w s
+    | While (guard, stmnt) ->
+        let b = boolEval guard w s
+        if b then 
+            let s' = evalStmnt stmnt w s
+            evalStmnt (While(guard, stmnt)) w s'
+        else s
